@@ -10,6 +10,11 @@ if sidekiq_instance?
   end
 
   node[:applications].each do |app_name, data|
+
+    # Only create monit config files for applications that are
+    # set to use Sidekiq.
+    next unless node[:sidekiq][:applications].include?(app_name)
+
     template "/etc/monit.d/sidekiq_#{app_name}.monitrc" do 
       owner 'root' 
       group 'root' 

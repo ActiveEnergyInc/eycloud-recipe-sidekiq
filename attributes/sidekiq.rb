@@ -1,0 +1,1 @@
+sidekiq :applications => ['crm']
